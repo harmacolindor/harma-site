@@ -14,10 +14,13 @@ export function GradientBackground({ variant, className }) {
   return <div className={classes} />;
 }
 
+const THEME_KEY = "site-theme";
+
 export default function Layout({ children }) {
   const setAppTheme = () => {
-    const darkMode = localStorage.getItem('theme') === 'dark';
-    const lightMode = localStorage.getItem('theme') === 'light';
+    const theme = localStorage.getItem(THEME_KEY);
+    const darkMode = !theme || theme === 'dark';
+    const lightMode = theme === 'light';
 
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -33,10 +36,10 @@ export default function Layout({ children }) {
     darkQuery.onchange = (e) => {
       if (e.matches) {
         document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem(THEME_KEY, 'dark');
       } else {
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem(THEME_KEY, 'light');
       }
     };
   };
